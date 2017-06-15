@@ -1,20 +1,21 @@
 ---
 driver:
   name: vagrant
+  gui: false
+  customize:
+    memory: 2048
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
   - name: centos-7.3
+    driver:
+      box: foxguard/centos73
 
 suites:
   - name: default
@@ -24,3 +25,5 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
+      fgs_docker:
+        enable-non-sudo-access: true

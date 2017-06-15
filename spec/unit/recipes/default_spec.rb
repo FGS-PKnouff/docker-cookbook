@@ -1,22 +1,35 @@
-#
-# Cookbook:: fgs_docker
-# Spec:: default
-#
-# Copyright:: 2017, The Authors, All Rights Reserved.
-
 require 'spec_helper'
 
 describe 'fgs_docker::default' do
-  context 'When all attributes are default, on an Ubuntu 16.04' do
-    let(:chef_run) do
-      # for a complete list of available platforms and versions see:
-      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
-      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
-      runner.converge(described_recipe)
-    end
+  let(:non_sudo_docker_users) do
+    %w(alice bob)
+  end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
-    end
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(platform: 'centos', version: '7.3.1611') do |node|
+      node.normal['fgs_docker']['non-sudo-docker-users'] = non_sudo_docker_users
+      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe)
+    end.converge(described_recipe)
+  end
+
+  it 'creates a yum repository for docker-ce' do
+    expect(chef_run).to create_yum_repository('docker-ce-stable')
+    expect(chef_run).to makecache_yum_repository('docker-ce-stable')
+  end
+
+  it 'installs the docker-ce package' do
+    expect(chef_run).to install_package('docker-ce')
+  end
+
+  it 'enables the docker service' do
+    expect(chef_run).to enable_service('docker')
+  end
+
+  it 'starts the docker service' do
+    expect(chef_run).to start_service('docker')
+  end
+
+  it 'creates the docker group and adds the non-sudo-docker-users' do
+    expect(chef_run).to create_group('docker').with(members: non_sudo_docker_users)
   end
 end
