@@ -1,18 +1,18 @@
 # # encoding: utf-8
 
-# Inspec test for recipe fgs_docker::default
-
-# The Inspec reference, with examples and extensive documentation, can be
-# found at http://inspec.io/docs/reference/resources/
-
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
+describe command('docker') do
+  it { should exist }
 end
 
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe service('docker') do
+  it { should be_enabled }
+  it { should be_running }
+end
+
+describe command('docker run hello-world') do
+  its(:stdout) { should match(/Hello from Docker/) }
+end
+
+describe group('docker') do
+  it { should exist }
 end

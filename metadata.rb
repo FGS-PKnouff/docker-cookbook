@@ -1,20 +1,13 @@
 name 'fgs_docker'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'FoxGuard Solutions'
+maintainer_email 'pumpdev@foxguardsolutions.com'
 license 'All Rights Reserved'
-description 'Installs/Configures fgs_docker'
-long_description 'Installs/Configures fgs_docker'
-version '0.1.0'
+description 'Installs and configures docker'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version ::File.read('VERSION')
+source_url 'https://github.com/foxguardsolutions/docker-cookbook'
 chef_version '>= 12.1' if respond_to?(:chef_version)
 
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/fgs_docker/issues'
+supports 'centos', '>= 7.0'
 
-# The `source_url` points to the development reposiory for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/fgs_docker'
+depends 'chef-client', '~> 8.1.2'
