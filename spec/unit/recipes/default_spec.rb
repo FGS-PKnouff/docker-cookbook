@@ -32,4 +32,44 @@ describe 'fgs_docker::default' do
   it 'creates the docker group and adds the non-sudo-docker-users' do
     expect(chef_run).to create_group('docker').with(members: non_sudo_docker_users)
   end
+
+  it 'opens the docker TCP port' do
+    expect(chef_run).to create_firewall_rule('docker').with(
+      port: 2376,
+      protocol: :tcp,
+      command: :allow
+    )
+  end
+
+  it 'opens the docker swarm TCP port' do
+    expect(chef_run).to create_firewall_rule('docker swarm').with(
+      port: 2377,
+      protocol: :tcp,
+      command: :allow
+    )
+  end
+
+  it 'opens the docker network disco tcp port' do
+    expect(chef_run).to create_firewall_rule('docker network disco tcp').with(
+      port: 7946,
+      protocol: :tcp,
+      command: :allow
+    )
+  end
+
+  it 'opens the docker network disco udp port' do
+    expect(chef_run).to create_firewall_rule('docker network disco udp').with(
+      port: 7946,
+      protocol: :udp,
+      command: :allow
+    )
+  end
+
+  it 'opens the docker container ingress network port' do
+    expect(chef_run).to create_firewall_rule('docker container ingress network').with(
+      port: 4789,
+      protocol: :udp,
+      command: :allow
+    )
+  end
 end
