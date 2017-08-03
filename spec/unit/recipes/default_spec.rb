@@ -72,4 +72,20 @@ describe 'fgs_docker::default' do
       command: :allow
     )
   end
+
+  it 'opens the graylog web port' do
+    expect(chef_run).to create_firewall_rule('graylog web').with(
+      port: 9000,
+      protocol: :tcp,
+      command: :allow
+    )
+  end
+
+  it 'opens the graylog input http port' do
+    expect(chef_run).to create_firewall_rule('graylog input http').with(
+      port: 12202,
+      protocol: :tcp,
+      command: :allow
+    )
+  end
 end
