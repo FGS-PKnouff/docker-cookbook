@@ -2,6 +2,8 @@ Metrics/LineLength:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
+Style/NumericLiterals:
+  Enabled: false
 Style/UnneededInterpolation:
   Enabled: false
 EndOfLine:

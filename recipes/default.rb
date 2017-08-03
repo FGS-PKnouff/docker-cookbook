@@ -59,3 +59,15 @@ firewall_rule 'docker container ingress network' do
   protocol :udp
   command :allow
 end
+
+firewall_rule 'graylog web' do
+  port 9000
+  protocol :tcp
+  command :allow
+end
+
+firewall_rule 'graylog input http' do
+  port 12202
+  protocol :tcp
+  command :allow
+end
