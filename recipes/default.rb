@@ -1,11 +1,23 @@
-yum_repository 'docker-ce-stable' do
-  description 'Docker Repository'
-  baseurl 'https://download.docker.com/linux/centos/7/$basearch/stable'
-  gpgkey 'https://download.docker.com/linux/centos/gpg'
-  enabled true
-  make_cache true
-  fastestmirror_enabled true
-  action [:create, :makecache]
+case node['platform_family']
+when 'debian'
+  apt_repository 'docker-ce-stable' do
+    components ['stable']
+    uri "https://download.docker.com/linux/#{node['platform']}"
+    arch 'amd64'
+    key 'https://download.docker.com/linux/ubuntu/gpg'
+    action :add
+    cache_rebuild true
+  end
+when 'rhel'
+  yum_repository 'docker-ce-stable' do
+    description 'Docker Repository'
+    baseurl 'https://download.docker.com/linux/centos/7/$basearch/stable'
+    gpgkey 'https://download.docker.com/linux/centos/gpg'
+    enabled true
+    make_cache true
+    fastestmirror_enabled true
+    action %i[create makecache]
+  end
 end
 
 package 'docker-ce' do
@@ -14,7 +26,7 @@ package 'docker-ce' do
 end
 
 service 'docker' do
-  action [:enable, :start]
+  action %i[enable start]
 end
 
 node['fgs_docker']['non-sudo-docker-users'].each do |username|
@@ -27,6 +39,8 @@ group 'docker' do
 end
 
 include_recipe 'chef-client'
+
+return unless node['fgs_docker']['configure_firewall']
 
 include_recipe 'firewall::default'
 

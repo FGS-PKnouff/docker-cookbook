@@ -9,6 +9,7 @@ source_url 'https://github.com/foxguardsolutions/docker-cookbook'
 chef_version '>= 12.1' if respond_to?(:chef_version)
 
 supports 'centos', '>= 7.0'
+supports 'ubuntu', '>= 16.04'
 
 depends 'chef-client', '~> 8.1.2'
 depends 'firewall', '~> 2.6.2'
