@@ -25,4 +25,4 @@ RSpec::Core::RakeTask.new(:unit) do |tests|
   tests.rspec_opts = '--format RspecJunitFormatter --out test-results.xml'
 end
 
-task default: %w(style unit)
+task default: %w[style unit]

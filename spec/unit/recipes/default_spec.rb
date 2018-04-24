@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'fgs_docker::default' do
   let(:non_sudo_docker_users) do
-    %w(alice bob)
+    %w[alice bob]
   end
 
   let(:chef_run) do

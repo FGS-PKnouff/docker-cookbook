@@ -14,7 +14,7 @@ package 'docker-ce' do
 end
 
 service 'docker' do
-  action [:enable, :start]
+  action %i[enable start]
 end
 
 node['fgs_docker']['non-sudo-docker-users'].each do |username|
