@@ -40,6 +40,8 @@ end
 
 include_recipe 'chef-client'
 
+return unless node['fgs_docker']['configure_firewall']
+
 include_recipe 'firewall::default'
 
 firewall_rule 'docker' do
