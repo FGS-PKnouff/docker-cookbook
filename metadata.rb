@@ -12,4 +12,5 @@ supports 'centos', '>= 7.0'
 supports 'ubuntu', '>= 16.04'
 
 depends 'chef-client', '~> 8.1.2'
+depends 'chef-sugar', '~> 3.4.0'
 depends 'firewall', '~> 2.6.2'
