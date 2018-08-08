@@ -1,4 +1,3 @@
-
 require 'chef/cookbook/metadata'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'

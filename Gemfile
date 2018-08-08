@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'berkshelf'
+gem 'chef-sugar'
 gem 'chefspec'
 gem 'foodcritic'
 gem 'kitchen'
