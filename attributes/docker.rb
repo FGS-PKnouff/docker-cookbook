@@ -1,4 +1,3 @@
-
 default['fgs_docker']['docker-version'] = case node['platform_family']
                                           when 'debian'
                                             '18.03.0~ce-0~ubuntu'
