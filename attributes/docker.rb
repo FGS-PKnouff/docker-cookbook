@@ -1,6 +1,6 @@
 default['fgs_docker']['docker-version'] = case node['platform_family']
                                           when 'debian'
-                                            '18.06.0-ce-0~ubuntu'
+                                            '18.06.0~ce~3-0~ubuntu'
                                           when 'rhel'
                                             '18.03.0.ce-1.el7.centos'
                                           end
